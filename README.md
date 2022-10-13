@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Built an end-to-end facial image recognition system. 
+Built an end-to-end text image recognition system. 
 
 ## Quick Start
 
