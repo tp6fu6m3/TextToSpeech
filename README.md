@@ -8,10 +8,10 @@ Built an end-to-end facial image recognition system.
 
 1. Download the repository, and navigate to the downloaded folder.
 
-  - go to [**Facial Keypoint Detection Real-Time Filtering**](https://github.com/tp6fu6m3/Facial-Keypoint-Detection-Real-Time-Filtering)
-  - Download [**ZIP**](https://github.com/tp6fu6m3/Facial-Keypoint-Detection-Real-Time-Filtering/archive/main.zip)
-  - unzip Facial-Keypoint-Detection-Real-Time-Filtering-main.zip
-  - cd Facial-Keypoint-Detection-Real-Time-Filtering-main
+  - go to [**Text to Speech**](https://github.com/tp6fu6m3/TextToSpeech)
+  - Download [**ZIP**](https://github.com/tp6fu6m3/TextToSpeech/archive/refs/heads/main.zip)
+  - unzip TextToSpeech-main.zip
+  - cd TextToSpeech-main
 2. Install a few required pip packages (including OpenCV).
 
 ```
