@@ -26,9 +26,11 @@ pip install -r requirements.txt
   - download [**tesseract-ocr**](https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-v5.2.0.20220712.exe)
   - tick  `Chinese`  in `Additional language data(download)` during installation
 
-![](C:\Users\tp6fu\Desktop\20190811004910950.png)
 
-![](C:\Users\tp6fu\Desktop\20190811005339770.png)
+
+![Alt text](/img/1.png?raw=true "Optional Title")
+
+![Alt text](/img/2.png?raw=true "Optional Title")
 
 3. Demonstrate real time recognition.
 
