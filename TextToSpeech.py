@@ -5,44 +5,31 @@ import argparse
 import pytesseract
 
 from PIL import Image
-from threading import Thread
+from threading import Thread, Lock
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--no_camera", action="store_true", help="Process this program on local video")
 args = parser.parse_args()
 
-class ThreadedCamera(object):
+class TextImageToSpeech():
     def __init__(self):
-        self.capture = cv2.VideoCapture(0)
+        #self.capture = cv2.VideoCapture(0)
+        self.capture = cv2.VideoCapture('sample_video.mp4') if (args.no_camera) else cv2.VideoCapture(0)
         self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 2)
+        #self.capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
+        #self.capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'P', '4', 'V'))
 
         self.FPS = 1/30
         self.FPS_MS = int(self.FPS * 1000)
 
-        # Start frame retrieval thread
-        self.tupdate = Thread(target=self.update)
-        self.tupdate.daemon = True
-        self.tshow_frame = Thread(target=self.show_frame)
-        self.tshow_frame.daemon = True
-        #self.tframe2audio = Thread(target=self.frame2audio)
-        #self.tframe2audio.daemon = True
-        
+        self.thread_read_frame = Thread(target=self.read_frame, daemon=True)
+        self.thread_show_frame = Thread(target=self.show_frame, daemon=True)
         self.stop = False
-        #self.engine = pyttsx3.init()
-    
-    def forward(self):
-        self.tupdate.start()
-        time.sleep(1)
-        self.tshow_frame.start()
-        time.sleep(1)
-        #self.tframe2audio.start()
-        #time.sleep(1)
         
     
-    def update(self):
+    def read_frame(self):
         while True:
-            if self.capture.isOpened():
-                (self.status, self.frame) = self.capture.read()
+            (self.status, self.frame) = self.capture.read()
             time.sleep(self.FPS)
 
     def show_frame(self):
@@ -53,29 +40,37 @@ class ThreadedCamera(object):
                     cv2.destroyAllWindows()
                     self.stop = True
             except:
-                print("An show_frame exception occurred")
-
-    def frame2audio(self):
-        while True:
-            img = Image.fromarray(self.frame)
-            text = pytesseract.image_to_string(img, lang="chi_tra+eng")
-            print(text)
-            self.engine.say(text)
-            self.engine.runAndWait()
-
+                print("An exception occurred")
+    
+    def camera_is_open(self):
+        return args.no_camera or self.capture.isOpened()
+        
+    def run_thread(self):
+        self.thread_read_frame.start()
+        time.sleep(1)
+        self.thread_show_frame.start()
+        time.sleep(1)
+    
+    def get_frame(self):
+        return self.frame
+        
+    def is_stop(self):
+        return self.stop
+        
 
 
 if __name__ == '__main__':
-    engine = pyttsx3.init()
-    capture = ThreadedCamera()
-    capture.forward()
+    text_to_speech = pyttsx3.init()
+    TITS = TextImageToSpeech()
+    assert TITS.camera_is_open()
+    TITS.run_thread()
     while True:
-        img = Image.fromarray(capture.frame)
-        text = pytesseract.image_to_string(img, lang="chi_tra+eng")
+        image = Image.fromarray(TITS.get_frame())
+        text = pytesseract.image_to_string(image, lang="chi_tra+eng")
         print(text)
-        engine.say(text)
-        engine.runAndWait()
-        if capture.stop:
+        text_to_speech.say(text)
+        text_to_speech.runAndWait()
+        if TITS.is_stop():
             break
     
     
