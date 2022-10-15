@@ -32,6 +32,8 @@ pip install -r requirements.txt
 
 ![Alt text](/img/2.png?raw=true "Optional Title")
 
+- add  `C:\your location\Tesseract-OCR`  into `Path` 
+
 3. Demonstrate real time recognition.
 
 ```
