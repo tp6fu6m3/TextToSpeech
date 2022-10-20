@@ -34,12 +34,19 @@ pip install -r requirements.txt
 
 - add  `C:\your location\Tesseract-OCR`  into `Path` 
 
-3. Demonstrate real time recognition.
+3. Download  `IP攝影機` on your mobile devices.
+
+- go to setting->video overlay->text color, and change the Opacity from 100% to 0%
+- Revise the  `LOCAL_URL` in  `main.py` 
+
+![Alt text](/img/3.jpg?raw=true "Optional Title")
+
+4. Demonstrate real time recognition.
 
 ```
-python TextToSpeech.py
-python TextToSpeech.py --no_camera     // if you don't have a camera on your device
+python main.py
+python main.py --camera        // Process this program on web-camera
+python main.py --no_camera     // Process this program on local video
 ```
 
 -   press `q` to quit the program
-
