@@ -36,6 +36,8 @@ pip install -r requirements.txt
 
 3. Download  `IP攝影機` on your mobile devices.
 
+![Alt text](/img/4.jpg?raw=true "Optional Title")
+
 - go to setting->video overlay->text color, and change the Opacity from 100% to 0%
 - Revise the  `LOCAL_URL` in  `main.py` 
 
